@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: sw-quotes-service-pod
+  labels:
+    type: app
+    lang: go
+    component: backend
+spec:
+  containers:
+    - name: sw-quotes-service-container
+      image: prathameshkavlekar/sw-quotes-service
