@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: sw-quotes-service-replicaset
+  labels:
+    type: app
+    lang: go
+    component: backend
+spec:
+  template:
+    metadata:
+      name: sw-quotes-service-replicaset
+      labels:
+        type: app
+        lang: go
+        component: backend
+    spec:
+      containers:
+        - name: sw-quotes-service-container
+          image: prathameshkavlekar/sw-quotes-service
+  replicas: 5
+  selector:
+    matchLabels:
+      type: app
+      
+
