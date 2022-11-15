@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: sw-qs-env-cm
+  labels:
+    type: app
+    feature: with-config-map
+spec:
+  template:
+    metadata:
+      name: sw-quotes-service-pod
+      labels:
+        type: app
+        feature: with-config-map
+    spec:
+      containers:
+        - name: sw-quotes-service-container
+          image: prathameshkavlekar/sw-quotes-service
+          envFrom: 
+            - configMapRef:
+                name: quotes-config-map
+  selector:
+    matchLabels:
+      type: app
+      feature: with-config-map

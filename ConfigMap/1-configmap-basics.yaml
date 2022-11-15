@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  creationTimestamp: null
+  name: quotes-config-map
+data:
+  useCache: "true"
+  cache: "redis"

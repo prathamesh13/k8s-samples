@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: sw-qs-env
+  labels:
+    type: app
+    feature: with-env
+spec:
+  template:
+    metadata:
+      name: sw-quotes-service-pod
+      labels:
+        type: app
+        feature: with-env
+    spec:
+      containers:
+        - name: sw-quotes-service-container
+          image: prathameshkavlekar/sw-quotes-service
+          env:  
+            - name: USE_CACHE
+              value: "true"
+            - name: CACHE
+              value: "redis"
+  selector:
+    matchLabels:
+      type: app
+      feature: with-env
+  replicas: 3
