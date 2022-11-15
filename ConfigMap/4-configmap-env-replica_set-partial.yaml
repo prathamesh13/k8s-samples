@@ -1,0 +1,44 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  creationTimestamp: null
+  name: cm-ref
+data:
+  useCache: "true"
+  cache: "redis"
+  env: stage
+
+---
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: sw-qs-env-cm-ref
+  labels:
+    type: app
+    feature: ref-config-map
+spec:
+  template:
+    metadata:
+      name: sw-quotes-service-pod
+      labels:
+        type: app
+        feature: ref-config-map
+    spec:
+      containers:
+        - name: sw-quotes-service-container
+          image: prathameshkavlekar/sw-quotes-service
+          env: 
+            - name: USE_CACHE
+              valueFrom:
+                configMapKeyRef:
+                  name: cm-ref
+                  key: useCache
+            - name: DEPLOYMENT_ENV
+              valueFrom: 
+                configMapKeyRef:
+                  name: cm-ref
+                  key: env
+  selector:
+    matchLabels:
+      type: app
+      feature: ref-config-map
