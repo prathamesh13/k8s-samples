@@ -1,0 +1,16 @@
+apiVersion: batch/v1
+kind: Job
+metadata: 
+  name: job-with-completions
+spec:
+  completions: 2
+  backoffLimit: 20
+  template:
+    spec:
+      containers:
+      - name: job-with-completion-container
+        image: busybox
+        command: 
+        - "echo"
+        - "running cleanup..."
+      restartPolicy: "Never"
